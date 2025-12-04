@@ -5,11 +5,12 @@ Feature: Registration functionality
     When User enters the details into below fields
       |firstname|arjun                     |
       |lastname |k                         |
-      |email    |arjunkumaresan95@gmail.com|
+      |email    |arjunkumaresan96@gmail.com|
       |telephone|9876543210                |
       |password |Mine@9506                 |
     And User selects privacy policy
     And User clicks on continue button
+
     Then User account shout get created successfully
 
   Scenario:User creates an account with all fields
@@ -17,7 +18,7 @@ Feature: Registration functionality
     When User enters the details into below fields
       |firstname|arjun                     |
       |lastname |k                         |
-      |email    |arjunkumaresan97@gmail.com|
+      |email    |arjunkumaresan98@gmail.com|
       |telephone|9876543210                |
       |password |Mine@9506                 |
     And User select yes for news letter
@@ -30,7 +31,7 @@ Feature: Registration functionality
      When User enters the details into below fields
        |firstname|arjunkumaresan            |
        |lastname |kp                        |
-       |email    |arjunkumaresan97@gmail.com|
+       |email    |arjunkumaresan98@gmail.com|
        |telephone|9876543201                |
        |password |Mine@9506                 |
      And User select yes for news letter
