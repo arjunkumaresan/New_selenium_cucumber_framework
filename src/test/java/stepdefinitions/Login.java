@@ -1,84 +1,99 @@
 package stepdefinitions;
 
-import Factory.Driverfactory;
+
+import Pages.Accountpage;
+import Pages.Homepage;
+import Pages.Loginpage;
+import io.cucumber.java.bs.A;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import utilities.Common_utils;
+import utilities.Driverfactory;
 
 import java.util.Date;
 
 public class Login {
 
     WebDriver driver;
+    private Loginpage loginpage;
+    private Homepage homepage;
+
+    private Accountpage accountpage;
+
+
 
     @Given("^User navigates to login page$")
     public void user_navigates_to_login_page() throws Throwable {
 
-        driver = Driverfactory.getdriver();
-        driver.findElement(By.xpath("//span[text()='My Account']")).click();
-        driver.findElement(By.linkText("Login")).click();
+        driver = Driverfactory.getDriver();
+        homepage = new Homepage(driver);
+        homepage.clickonmyaccount();
+        loginpage = homepage.Loginoption();
 
     }
 
     @When("^User enters valid email \"([^\"]*)\"$")
     public void user_enters_valid_email(String emailtext) throws Throwable {
 
-        driver.findElement(By.id("input-email")).sendKeys(emailtext);
+
+        loginpage.Enteremail(emailtext);
     }
 
     @When("^User has entered valid password \"([^\"]*)\"$")
     public void user_has_entered_valid_password(String password) throws Throwable {
 
-        driver.findElement(By.id("input-password")).sendKeys(password);
+        loginpage.Enterpassword(password);
     }
 
     @When("^User click on login button$")
     public void user_click_on_login_button() throws Throwable {
 
-        driver.findElement(By.xpath("//input[@type='submit']")).click();
+        accountpage = loginpage.clickonsubmit();
     }
 
     @Then("^User should get successfully logged in$")
     public void user_should_get_successfully_logged_in() throws Throwable {
 
-        Assert.assertTrue(driver.findElement(By.linkText("Edit your account information")).isDisplayed());
+
+        Assert.assertTrue(accountpage.displaystatusofaccount());
     }
 
     @When("^User enters invalid email \"([^\"]*)\"$")
     public void user_enters_invalid_email(String invalid_email) throws Throwable {
 
-        driver.findElement(By.id("input-email")).sendKeys(getemailtimestamp());
+        Common_utils utils = new Common_utils();
+        loginpage.Enteremail(utils.getemailtimestamp());
     }
 
     @When("^User has entered invalid password \"([^\"]*)\"$")
     public void user_has_entered_invalid_password(String invalid_password) throws Throwable {
 
-        driver.findElement(By.id("input-password")).sendKeys(invalid_password);
+        loginpage.Enterpassword(invalid_password);
     }
 
     @Then("^User should get proper warning message regarding mismatch$")
     public void user_should_get_proper_warning_message_regarding_mismatch() throws Throwable {
 
-        Assert.assertTrue(driver.findElement(By.xpath("//div[contains(@class,'alert-dismissible')]")).isDisplayed());
+
+        Assert.assertTrue(loginpage.verifywarningmessage().contains("Warning: No match for E-Mail Address and/or Password."));
     }
 
     @When("^User don't enter email$")
     public void user_don_t_enter_email() throws Throwable {
 
-        driver.findElement(By.id("input-email")).sendKeys("");
+
+        loginpage.Enteremail(" ");
     }
 
     @When("^User don't enter password$")
     public void user_don_t_enter_password() throws Throwable {
 
-        driver.findElement(By.id("input-password")).sendKeys("");
+
+        loginpage.Enterpassword(" ");
     }
-public String getemailtimestamp()
-{
-    Date date = new Date();
-    return "arjun"+date.toString().replace(" ","_").replace(":","_")+"gmail.com";
-}
+
 }
