@@ -23,7 +23,7 @@ public class Homepage {
     @FindBy(xpath = "//a[@title='My Account']")
     WebElement myaccountmenu;
 
-    @FindBy(linkText = "Login")
+    @FindBy(xpath = "//a[text()='Login']")
     WebElement loginmenu;
 
     @FindBy(linkText = "Register")
@@ -38,6 +38,7 @@ public class Homepage {
 
     public void clickonmyaccount()
     {
+        System.out.println("DEBUG - Is My Account element null? -> " + (myaccountmenu == null));
         utils.ClickonElement(myaccountmenu,15);
 
     }
