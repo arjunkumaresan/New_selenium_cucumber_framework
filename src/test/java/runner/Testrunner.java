@@ -1,4 +1,4 @@
-package Runner;
+package runner;
 
 
 
@@ -10,6 +10,8 @@ import org.junit.runner.RunWith;
 
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features="src/test/java/Features/Login.feature",glue="stepdefinitions")
+@CucumberOptions(features="src/test/resources/Features/Login.feature",glue={"stepdefinitions","Hooks"}
+        ,publish = false
+        ,plugin = {"pretty","html:target/CucumberReports/CucumberReport.html"})
 public class Testrunner {
 }
