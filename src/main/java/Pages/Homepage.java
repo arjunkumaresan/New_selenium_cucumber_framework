@@ -20,7 +20,7 @@ public class Homepage {
         utils = new Elementutils(driver);
     }
 
-    @FindBy(xpath = "//span[text()='My Account']")
+    @FindBy(xpath = "//a[@title='My Account']")
     WebElement myaccountmenu;
 
     @FindBy(linkText = "Login")
